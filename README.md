@@ -1,2 +1,2 @@
-# calculator
-An on-screen calculator on the web
+## calculator
+An on-screen calculator on the web for The Odin Project.

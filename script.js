@@ -1,3 +1,4 @@
+/**************FUNCTIONS**************/
 function add(a, b) {
     return a + b;
 };
@@ -30,3 +31,13 @@ function operate(opr, a, b) {
     }
 };
 
+/* */
+const populate = document.querySelector('.populate');
+const number = document.querySelectorAll('.number');
+
+number.forEach(num => {
+    num.addeventListener('click', () => {
+    num.textContent = populate.textContent;
+    })
+    
+})

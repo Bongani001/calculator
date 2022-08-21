@@ -7,8 +7,12 @@
 </head>
 <body>
     <div class="container">
-        <div style="font-size: 20px;">Basic Calculator</div>
-        <div class="display"></div>
+        <div style="font-size: 20px;">Calculator</div>
+        <div class="display">
+            <div class="show-power">on</div>
+            <div class="results">12</div>
+            <div class="populate">25</div>
+        </div>
         <div class="button-container">
             <div class="first-row">
                 <button class="power">.</button>
@@ -35,8 +39,8 @@
                 <button class="add" id="operator">+</button>
             </div>
             <div class="last">
-                <button class="number0">0</button>
-                <button class="number">,</button>
+                <button class="number" id="zero">0</button>
+                <button class="number">.</button>
                 <button class="equal-sign">=</button>
             </div>
         </div>

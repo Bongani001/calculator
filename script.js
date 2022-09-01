@@ -1,19 +1,21 @@
 /**************FUNCTIONS**************/
 function add(a, b) {
-    let total =  a + b;
+    let total =  Number(a) + Number(b);
     return total;
 };
 
 function subtract(a, b) {
     let total = a - b;
-    console.log(a);
-    console.log(b);
     return total;
 };
 
 function multiply(a, b) {
-    let total = a * b;
-    return total;
+    if (typeof b == 'string') {
+        return a;
+    } else {
+        let total = a * b;
+        return total;
+    };
 };
 
 function divide(a, b) {
@@ -30,14 +32,12 @@ function operate(opera, a, b) {
         case '*':
             return multiply(a, b);
         case '/':
-            if (typeof b == 'string') {
-                return a;
-            };
             if (b == 0) {
                 return 'SYNTAX ERROR!';
-            };
-            return divide(a, b);
-    }
+            } else {
+                return divide(a, b);
+            };   
+        };
 };
 
 /* */
@@ -70,12 +70,13 @@ operator.forEach(opr => {
         } else if (typeof a == 'number') {
             a = previous;
             b = n;
+            b = Number(b);
+            console.log(typeof b)
         };
-        c = operate(opera, Number(a), Number(b));
+        c = operate(opera, a, b);
+        n = '';
         populate.textContent = c;
         previous = c;
-        b = populate.textContent;
-        n = '';
         a = Number(a);
     });
 });

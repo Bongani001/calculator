@@ -56,6 +56,7 @@ let e = '';
 let conc = '';
 let pair = '';
 let opera = '';
+let lastOpera = '';
 
 number.forEach(num => {
     num.addEventListener('click', () => {
@@ -66,7 +67,6 @@ number.forEach(num => {
 
 operator.forEach(opr => {
     opr.addEventListener('click', () => {
-        let lastOpera = opera;
         opera = opr.textContent;
         
         conc = conc + n + opera;
@@ -78,20 +78,28 @@ operator.forEach(opr => {
             b = n;
             b = Number(b);
         };
-        c = operate(opera, a, b);
         n = '';
+        c = operate(opera, a, b);
         //populate.textContent = c;
-        previous = c;
+        //previous = c;
         a = Number(a);
-        if (opera != lastOpera) {
+
+        if (lastOpera == '') {
+            c = operate(opera, a, b);
+            populate.textContent = c;
+            previous = c;
+        } else if (opera !== lastOpera) {
             c = operate(lastOpera, a, b);
             populate.textContent = c;
+            previous = c;
             //populate.textContent = operate(opera, previous, b);
             //`${previous} ${opera} ${b}`;
         } else {
+            
             populate.textContent = c;
-
+            previous = c;
         };
+        lastOpera = opera;
         
     });
 });

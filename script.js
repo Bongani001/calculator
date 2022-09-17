@@ -107,11 +107,11 @@ operator.forEach(opr => {
 
 
 equalSign.addEventListener('click', () => {
-    a = populate.textContent;
+    b = populate.textContent;
     populate.textContent = '';
-    let result = operate(opera,Number(previous) , Number(a));
+    let result = operate(opera,Number(previous) , Number(b));
     populate.textContent = result;
+    previous = result;
     n = '';
-    a = '';
     b = '';
 });

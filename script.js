@@ -48,6 +48,7 @@ const number = document.querySelectorAll('.number');
 const operator = document.querySelectorAll('#operator');
 const equalSign = document.querySelector('.equal-sign');
 const results = document.querySelector('.results');
+const point = document.querySelector('.point');
 
 a = '';
 b = '';
@@ -64,6 +65,16 @@ number.forEach(num => {
         populate.textContent = n;
     });
 });
+
+point.addEventListener('click', () => {
+    if (n.includes('.')) {
+        point.disabled = true;
+    } else {
+        n += point.textContent;
+        populate.textContent = n;
+    }
+    
+})
 
 operator.forEach(opr => {
     opr.addEventListener('click', () => {
@@ -100,7 +111,7 @@ operator.forEach(opr => {
             previous = c;
         };
         lastOpera = opera;
-        
+        point.disabled = false;
     });
 });
 

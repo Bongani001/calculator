@@ -49,6 +49,8 @@ const operator = document.querySelectorAll('#operator');
 const equalSign = document.querySelector('.equal-sign');
 const results = document.querySelector('.results');
 const point = document.querySelector('.point');
+const clear = document.querySelector('.clear');
+const backspace = document.querySelector('.backspace');
 
 a = '';
 b = '';
@@ -58,6 +60,7 @@ let conc = '';
 let pair = '';
 let opera = '';
 let lastOpera = '';
+let arr = [];
 
 number.forEach(num => {
     num.addEventListener('click', () => {
@@ -126,3 +129,27 @@ equalSign.addEventListener('click', () => {
     n = '';
     b = '';
 });
+
+clear.addEventListener('click', () => {
+    populate.textContent = '';
+    a = '';
+    b = '';
+    n = '';
+    e = '';
+    conc = '';
+    pair = '';
+    opera = '';
+    lastOpera = '';
+    previous = '';
+    arr = [];
+});
+
+backspace.addEventListener('click', () => {
+    let back = String(populate.textContent);
+    arr = back.split('');
+    arr.pop();
+    let newer = arr.join('');
+    console.log(newer);
+    populate.textContent = Number(newer);
+    n = populate.textContent;
+})

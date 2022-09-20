@@ -42,6 +42,49 @@ function operate(opera, a, b) {
         };
 };
 
+function equals() {
+    b = populate.textContent;
+    populate.textContent = '';
+    let result = operate(opera,Number(previous) , Number(b));
+    previous = result;
+    n = '';
+    b = '';
+    let newResults = Math.round(result * 10000) / 10000;
+    populate.textContent = newResults;
+};
+
+function backSpace() {
+    let back = String(populate.textContent);
+    arr = back.split('');
+    arr.pop();
+    let newer = arr.join('');
+    populate.textContent = Number(newer);
+    n = populate.textContent;
+};
+
+function clearCalc() {
+    populate.textContent = '';
+    a = '';
+    b = '';
+    n = '';
+    e = '';
+    conc = '';
+    pair = '';
+    opera = '';
+    lastOpera = '';
+    previous = '';
+    arr = [];
+};
+
+function pointBtn() {
+    if (n.includes('.')) {
+        point.disabled = true;
+    } else {
+        n += point.textContent;
+        populate.textContent = n;
+    };
+}
+
 /* */
 const populate = document.querySelector('.populate');
 const number = document.querySelectorAll('.number');
@@ -78,22 +121,10 @@ number.forEach(num => {
     });
 });
 
-point.addEventListener('click', () => {
-    if (n.includes('.')) {
-        point.disabled = true;
-    } else {
-        n += point.textContent;
-        populate.textContent = n;
-    }
-    
-})
-
 operator.forEach(opr => {
     opr.addEventListener('click', () => {
         opera = opr.textContent;
-        
         conc = conc + n + opera;
-        console.log(conc);
         if (typeof a == 'string') {
             a = n;
         } else if (typeof a == 'number') {
@@ -117,8 +148,7 @@ operator.forEach(opr => {
             previous = c;
             //populate.textContent = operate(opera, previous, b);
             //`${previous} ${opera} ${b}`;
-        } else {
-            
+        } else {  
             populate.textContent = c;
             previous = c;
         };
@@ -128,37 +158,70 @@ operator.forEach(opr => {
 });
 
 
+/******* EVENT LISTENERS ******/
 
-equalSign.addEventListener('click', () => {
-    b = populate.textContent;
-    populate.textContent = '';
-    let result = operate(opera,Number(previous) , Number(b));
-    previous = result;
-    n = '';
-    b = '';
-    let newResults = Math.round(result * 10000) / 10000;
-    populate.textContent = newResults;
+equalSign.addEventListener('click', equals);
+
+clear.addEventListener('click', clearCalc);
+
+backspace.addEventListener('click', backSpace);
+
+point.addEventListener('click', pointBtn);
+
+window.addEventListener('keydown', (e) => {
+    if (e.key >= 0 && e.key <= 9) {
+        let keyboardNum = e.key;
+        n = n + keyboardNum;
+        populate.textContent = n;
+    };
+    if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+        newOpera = e.key;
+        callOperator();
+    };
+    if (e.key === 'Enter') {
+        equals();
+    };
+    if (e.key === 'Backspace') {
+        backSpace();
+    };
+    if (e.key === 'Escape') {
+        clearCalc();
+    };
+    if (e.key === '.') {
+        pointBtn();
+    };
+
 });
 
-clear.addEventListener('click', () => {
-    populate.textContent = '';
-    a = '';
-    b = '';
-    n = '';
-    e = '';
-    conc = '';
-    pair = '';
-    opera = '';
-    lastOpera = '';
-    previous = '';
-    arr = [];
-});
 
-backspace.addEventListener('click', () => {
-    let back = String(populate.textContent);
-    arr = back.split('');
-    arr.pop();
-    let newer = arr.join('');
-    populate.textContent = Number(newer);
-    n = populate.textContent;
-})
+function callOperator() {
+    opera = newOpera;
+    conc = conc + n + opera;
+    if (typeof a == 'string') {
+        a = n;
+    } else if (typeof a == 'number') {
+        a = previous;
+        b = n;
+        b = Number(b);
+    };
+    n = '';
+    c = operate(opera, a, b);
+    a = Number(a);
+
+    if (lastOpera == '') {
+        c = operate(opera, a, b);
+        populate.textContent = c;
+        previous = c;
+    } else if (opera !== lastOpera) {
+        c = operate(lastOpera, a, b);
+        populate.textContent = c;
+        previous = c;
+
+    } else {
+        
+        populate.textContent = c;
+        previous = c;
+    };
+    lastOpera = opera;
+    point.disabled = false;
+};

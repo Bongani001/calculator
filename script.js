@@ -61,11 +61,20 @@ let pair = '';
 let opera = '';
 let lastOpera = '';
 let arr = [];
+let displayArr = [];
 
 number.forEach(num => {
     num.addEventListener('click', () => {
         n += num.textContent;
         populate.textContent = n;
+        if (n.length > 23) {            //reduce numbers so they don't overflow the screen
+            let newNum = n;
+            displayArr = newNum.split('');
+            displayArr.shift();
+            let numbers = displayArr.join('');
+            n = numbers;
+            populate.textContent = n;
+        };
     });
 });
 
@@ -124,10 +133,11 @@ equalSign.addEventListener('click', () => {
     b = populate.textContent;
     populate.textContent = '';
     let result = operate(opera,Number(previous) , Number(b));
-    populate.textContent = result;
     previous = result;
     n = '';
     b = '';
+    let newResults = Math.round(result * 10000) / 10000;
+    populate.textContent = newResults;
 });
 
 clear.addEventListener('click', () => {
@@ -149,7 +159,6 @@ backspace.addEventListener('click', () => {
     arr = back.split('');
     arr.pop();
     let newer = arr.join('');
-    console.log(newer);
     populate.textContent = Number(newer);
     n = populate.textContent;
 })
